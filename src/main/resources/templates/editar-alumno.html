@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Alumno</title>
+    <link rel="stylesheet" href="/static/css/estilos.css">
+    <style>
+        /* Diseño general */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor del formulario */
+.container {
+    max-width: 500px;  /* Limita el ancho del formulario */
+    margin: 50px auto; /* Centra el formulario vertical y horizontalmente */
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;  /* Hace que los elementos del formulario se alineen en columna */
+    align-items: center;
+}
+
+/* Título */
+h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #2d3e50;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Estilo de los formularios */
+form {
+    width: 100%;  /* Hace que el formulario ocupe el 100% del contenedor */
+    display: flex;
+    flex-direction: column; /* Establece la disposición en columna */
+    align-items: center; /* Centra los elementos dentro del formulario */
+}
+
+/* Estilo para inputs, selects, y botones */
+form input, form select, form button {
+    width: 100%;  /* Hace que el input, select y botón ocupen todo el ancho disponible */
+    max-width: 400px;  /* Limita el ancho de los elementos */
+    padding: 12px;
+    margin-top: 12px;  /* Margen superior para separar los elementos */
+    margin-bottom: 15px; /* Margen inferior entre los campos */
+    border: 1px solid #ccd1d9;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #f7f9fc;
+    transition: all 0.3s ease;
+}
+
+/* Foco en inputs */
+form input:focus, form select:focus, form button:focus {
+    border-color: #2980b9;
+    outline: none;
+    box-shadow: 0 0 10px rgba(41, 128, 185, 0.3);
+}
+
+/* Estilo del botón */
+form button {
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+/* Cambio de color al pasar el ratón por encima */
+form button:hover {
+    background-color: #1f6391;
+}
+
+/* Estilo de los enlaces */
+a {
+    color: #2980b9;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+    </style>
+</head>
+<body>
+<h2>Editar Alumno</h2>
+<form th:action="@{'/alumnos/' + ${alumno.id} + '/editar'}" method="post" th:object="${alumno}">
+    <input type="text" th:field="*{nombre}" placeholder="Nombre" required />
+    <input type="text" th:field="*{curso}" placeholder="Curso" required />
+    <input type="text" th:field="*{grupo}" placeholder="Grupo" required />
+    <select th:field="*{deporte}">
+        <option value="FUTBOL">Futbol</option>
+        <option value="BALONCESTO">Baloncesto</option>
+        <option value="VOLEIBOL">Voleibol</option>
+    </select>
+    <select th:field="*{rol}">
+        <option value="ALUMNO">Alumno</option>
+        <option value="CAPITAN">Capitán</option>
+        <option value="PROFESOR">Profesor</option>
+    </select>
+    <button type="submit">Guardar</button>
+</form>
+</body>
+</html>
