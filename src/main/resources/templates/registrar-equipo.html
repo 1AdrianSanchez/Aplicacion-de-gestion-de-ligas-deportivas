@@ -102,27 +102,51 @@ select[multiple] {
 <h2>Registro de Equipo</h2>
 <form th:action="@{/registrar-equipo}" method="post" th:object="${equipo}">
     <input type="text" th:field="*{nombre}" placeholder="Nombre del equipo" required />
-    <select th:field="*{deporte}" required>
+    <select th:field="*{deporte}" id="deporteSelect" required>
         <option value="">Selecciona el deporte</option>
         <option value="FUTBOL">Futbol</option>
         <option value="BALONCESTO">Baloncesto</option>
         <option value="VOLEIBOL">Voleibol</option>
     </select>
-    <select th:field="*{capitan}" required>
+    <select th:field="*{capitan}" id="capitanSelect" required>
         <option value="">Selecciona al capitan</option>
         <option th:each="alumno : ${alumnos}"
                 th:value="${alumno.id}"
-                th:text="${alumno.nombre}">
+                th:text="${alumno.nombre}"
+                th:attr="data-deporte=${alumno.deporte}">
         </option>
     </select>
-    <select th:field="*{miembros}" multiple size="5" required>
+    <select th:field="*{miembros}" id="miembrosSelect" multiple size="5" required>
         <option th:each="alumno : ${alumnos}"
                 th:value="${alumno.id}"
-                th:text="${alumno.nombre}">
+                th:text="${alumno.nombre}"
+                th:attr="data-deporte=${alumno.deporte}">
         </option>
     </select>
     <button type="submit">Registrar Equipo</button>
     <a href="/">Volver a la página principal</a>
 </form>
+<script>
+    const deporteSelect = document.getElementById('deporteSelect');
+    const capitanSelect = document.getElementById('capitanSelect');
+    const miembrosSelect = document.getElementById('miembrosSelect');
+
+    function filtrarAlumnos() {
+        const deporteSeleccionado = deporteSelect.value;
+
+        [capitanSelect, miembrosSelect].forEach(select => {
+            Array.from(select.options).forEach(option => {
+                const deporte = option.getAttribute('data-deporte');
+                const mostrar = !deporte || deporte === deporteSeleccionado;
+                option.style.display = mostrar ? 'block' : 'none';
+            });
+            // Limpiar selección para evitar inconsistencias
+            select.value = '';
+        });
+    }
+
+    deporteSelect.addEventListener('change', filtrarAlumnos);
+    window.addEventListener('DOMContentLoaded', filtrarAlumnos);
+</script>
 </body>
 </html>
