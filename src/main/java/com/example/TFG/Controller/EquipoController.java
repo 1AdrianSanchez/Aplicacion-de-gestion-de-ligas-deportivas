@@ -15,14 +15,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Controlador para gestionar los equipos
+ * Incluye registro y listado de los mismos.
+ */
 @Controller
 public class EquipoController {
 
     @Autowired //implementa sin necesidad de constructor
     private EquipoRepository equipoRepository;
-    @Autowired
+    @Autowired //implementa sin necesidad de constructor
     private AlumnoRepository alumnoRepository;
 
+    /**
+     * Muestra el formulario de registro de equipos
+     * Incluye los alumnos disponibles para asignar capitan y miembros
+     * @param model objeto Model, envia datos a la vista
+     * @return nombre de la plantilla HTML
+     */
     @GetMapping("/registrar-equipo")
     public String mostrarFormularioEquipo(Model model) { //Model permite pasar datos a la vista
         model.addAttribute("equipo", new Equipo()); //creamos un objeto Equipo vacio y para rellenar con el HTML
@@ -30,45 +40,55 @@ public class EquipoController {
         return "registrar-equipo";
     }
 
+    /**
+     * Procesa el envio del formulario
+     * @param equipo objeto Equipo, tiene los datos del formulario
+     * @return nombre de la plantilla HTML
+     */
     @PostMapping("/registrar-equipo")
     public String crearEquipo(@ModelAttribute Equipo equipo) { //asigna automaticamente los datos del Equipo desde el formulario
-        equipoRepository.save(equipo);
+        equipoRepository.save(equipo); //lo guardamos en la BBDD
         return "redirect:/registrar-equipo"; //redirigimos para evitar volver a enviar el formulario
     }
 
+    /**
+     * Lista de todos los equipos de la BBDD
+     * Transforma la informacion para mostrar los nombres en lugar de los IDs
+     * @param model objeto Model, envia datos a la vista
+     * @return nombre de la plantilla HTML
+     */
     @GetMapping("/equipos")
-    public String listarEquipos(Model model) {
-        var equipos = equipoRepository.findAll();
-        var alumnos = alumnoRepository.findAll();
+    public String listarEquipos(Model model) { //Model permite pasar datos a la vista
+        var equipos = equipoRepository.findAll(); //obtenemos todos los equipos
+        var alumnos = alumnoRepository.findAll(); //obtenemos todos los alumnos
 
-        // Crear un mapa de ID de alumno -> nombre del alumno
+        //Map para transformar IDs a nombres
         Map<String, String> idNombreMap = new HashMap<>();
         for (var alumno : alumnos) {
-            idNombreMap.put(alumno.getId(), alumno.getNombre());
+            idNombreMap.put(alumno.getId(), alumno.getNombre()); //asociamos el ID del alumno con el nombre del alumno
         }
 
-        // Para cada equipo, crear listas con nombres de capitán y miembros
-        // (asumiendo que capitan y miembros almacenan IDs)
+        //Recorremos cada equipos para sustituir los IDs por los nombres
         for (Equipo equipo : equipos) {
-            // Cambiar ID de capitán por nombre
-            if (equipo.getCapitan() != null) {
-                String nombreCapitan = idNombreMap.get(equipo.getCapitan());
-                equipo.setCapitan(nombreCapitan != null ? nombreCapitan : equipo.getCapitan());
+            //Cambio e ID de campitan por su nombre
+            if (equipo.getCapitan() != null) { //verificamos que haya un capitan
+                String nombreCapitan = idNombreMap.get(equipo.getCapitan()); //buscamos el nombre del capitan en el Map
+                equipo.setCapitan(nombreCapitan != null ? nombreCapitan : equipo.getCapitan()); //sustituimos el ID con el nombre
             }
 
-            // Cambiar IDs de miembros por nombres
-            if (equipo.getMiembros() != null) {
+            //Cambio de ID de miembros por sus nombres
+            if (equipo.getMiembros() != null) { //verificamos si hay una lista de miembros
                 List<String> nombresMiembros = new ArrayList<>();
-                for (String miembroId : equipo.getMiembros()) {
-                    String nombreMiembro = idNombreMap.get(miembroId);
-                    nombresMiembros.add(nombreMiembro != null ? nombreMiembro : miembroId);
+                for (String miembroId : equipo.getMiembros()) { //recorremos la lista de miembros
+                    String nombreMiembro = idNombreMap.get(miembroId); //buscamos el nombre del miembro en el Map
+                    nombresMiembros.add(nombreMiembro != null ? nombreMiembro : miembroId); //agregamos el nombre a la nueva lista
                 }
-                equipo.setMiembros(nombresMiembros);
+                equipo.setMiembros(nombresMiembros); //actualizamos l lista con los nombres
             }
         }
 
-        model.addAttribute("equipos", equipos);
-        model.addAttribute("alumnos", alumnos);
-        return "lista-equipos"; // Nombre del HTML que crearás
+        model.addAttribute("equipos", equipos); //añade la lista modificada al modelo
+        model.addAttribute("alumnos", alumnos); //añade los alumnos al modelo
+        return "lista-equipos";
     }
 }
