@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Lista de Partidos</title>
+  <meta charset="UTF-8" />
+  <title>Lista de Equipos</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
     body {
@@ -57,28 +57,26 @@
   </style>
 </head>
 <body>
-<div class="container">
-  <h2>Partidos Programados</h2>
-  <table class="table table-striped">
+<div class="container mt-4">
+  <h1>Lista de Equipos</h1>
+  <table class="table table-bordered">
     <thead>
     <tr>
-      <th>Equipos</th>
-      <th>Fecha</th>
-      <th>Lugar</th>
-      <th>Resultado</th>
-      <th>Acción</th>
+      <th>Nombre Equipo</th>
+      <th>Deporte</th>
+      <th>Capitán</th>
+      <th>Miembros</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="partido : ${partidos}">
+    <tr th:each="equipo : ${equipos}">
+      <td th:text="${equipo.nombre}"></td>
+      <td th:text="${equipo.deporte}"></td>
+      <td th:text="${equipo.capitan}"></td>
       <td>
-        <strong th:text="${equipoNombres[partido.equipoA]} + ' vs ' + ${equipoNombres[partido.equipoB]}"></strong>
-      </td>
-      <td th:text="${partido.fecha}"></td>
-      <td th:text="${partido.lugar}"></td>
-      <td th:text="${partido.resultado}"></td>
-      <td>
-        <a th:href="@{'/partidos/' + ${partido.id} + '/registrar-resultado'}">Registrar Resultado</a>
+        <ul>
+          <li th:each="miembro : ${equipo.miembros}" th:text="${miembro}"></li>
+        </ul>
       </td>
     </tr>
     </tbody>

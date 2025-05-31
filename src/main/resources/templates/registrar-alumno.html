@@ -99,12 +99,14 @@ a:hover {
   <input type="text" th:field="*{nombre}" placeholder="Nombre" required />
   <input type="text" th:field="*{curso}" placeholder="Curso" required />
   <input type="text" th:field="*{grupo}" placeholder="Grupo" required />
-  <select th:field="*{deporte}">
+  <select th:field="*{deporte}" required>
+    <option value="">Selecciona un deporte</option>
     <option value="FUTBOL">Futbol</option>
     <option value="BALONCESTO">Baloncesto</option>
     <option value="VOLEIBOL">Voleibol</option>
   </select>
   <button type="submit">Registrar</button>
+  <a href="/">Volver a la página principal</a>
 </form>
 </body>
 </html>

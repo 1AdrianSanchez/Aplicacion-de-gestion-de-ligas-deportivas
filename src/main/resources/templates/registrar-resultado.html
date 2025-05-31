@@ -97,13 +97,15 @@ a:hover {
 <h2>Registrar Resultado del Partido</h2>
 <form th:action="@{'/partidos/' + ${partido.id} + '/resultado'}" method="post">
   <p>
-    [[${partido.equipoA}]] vs [[${partido.equipoB}]] <br>
+    <strong>[[${equipoNombres[partido.equipoA]}]] vs [[${equipoNombres[partido.equipoB]}]]</strong> <br>
     Fecha: [[${partido.fecha}]] <br>
     Lugar: [[${partido.lugar}]]
   </p>
   <input type="text" name="resultado" placeholder="Ej: 2 - 1" required />
   <input type="text" name="usuarioId" placeholder="Tu ID de usuario (capitán o profesor)" required />
   <button type="submit">Guardar Resultado</button>
+  <a href="/partidos">Volver a la lista de partidos</a> <br>
+  <a href="/">Volver a la página principal</a>
 </form>
 </body>
 </html>

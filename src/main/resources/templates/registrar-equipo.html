@@ -91,20 +91,38 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+select[multiple] {
+    height: auto;
+    min-height: 120px;
+}
     </style>
 </head>
 <body>
 <h2>Registro de Equipo</h2>
 <form th:action="@{/registrar-equipo}" method="post" th:object="${equipo}">
     <input type="text" th:field="*{nombre}" placeholder="Nombre del equipo" required />
-    <select th:field="*{deporte}">
+    <select th:field="*{deporte}" required>
+        <option value="">Selecciona el deporte</option>
         <option value="FUTBOL">Futbol</option>
         <option value="BALONCESTO">Baloncesto</option>
         <option value="VOLEIBOL">Voleibol</option>
     </select>
-    <input type="text" th:field="*{capitan}" placeholder="ID del Capitán" required />
-    <input type="text" th:field="*{miembros}" placeholder="IDs de miembros separados por coma" required />
+    <select th:field="*{capitan}" required>
+        <option value="">Selecciona al capitan</option>
+        <option th:each="alumno : ${alumnos}"
+                th:value="${alumno.id}"
+                th:text="${alumno.nombre}">
+        </option>
+    </select>
+    <select th:field="*{miembros}" multiple size="5" required>
+        <option th:each="alumno : ${alumnos}"
+                th:value="${alumno.id}"
+                th:text="${alumno.nombre}">
+        </option>
+    </select>
     <button type="submit">Registrar Equipo</button>
+    <a href="/">Volver a la página principal</a>
 </form>
 </body>
 </html>

@@ -3,103 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Alumnos</title>
-    <link rel="stylesheet" href="/static/css/estilos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         /* Diseño general */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f4f8;
-    color: #333;
-    margin: 0;
-    padding: 0;
-}
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
 
-/* Contenedor del formulario */
-.container {
-    max-width: 500px;  /* Limita el ancho del formulario */
-    margin: 50px auto; /* Centra el formulario vertical y horizontalmente */
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;  /* Hace que los elementos del formulario se alineen en columna */
-    align-items: center;
-}
+        /* Contenedor */
+        .container {
+            max-width: 900px;  /* Más ancho para la tabla */
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
 
-/* Título */
-h2 {
-    text-align: center;
-    font-size: 24px;
-    color: #2d3e50;
-    margin-bottom: 20px;
-    font-weight: bold;
-}
+        /* Título */
+        h2 {
+            text-align: center;
+            font-size: 28px;
+            color: #2d3e50;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
 
-/* Estilo de los formularios */
-form {
-    width: 100%;  /* Hace que el formulario ocupe el 100% del contenedor */
-    display: flex;
-    flex-direction: column; /* Establece la disposición en columna */
-    align-items: center; /* Centra los elementos dentro del formulario */
-}
+        /* Enlaces de acción */
+        a {
+            color: #2980b9;
+            font-size: 14px;
+            text-decoration: none;
+        }
 
-/* Estilo para inputs, selects, y botones */
-form input, form select, form button {
-    width: 100%;  /* Hace que el input, select y botón ocupen todo el ancho disponible */
-    max-width: 400px;  /* Limita el ancho de los elementos */
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .nav-button {
+    display: block;
+    width: 250px;
+    margin: 20px auto 0; /* centrado y margen superior reducido */
     padding: 12px;
-    margin-top: 12px;  /* Margen superior para separar los elementos */
-    margin-bottom: 15px; /* Margen inferior entre los campos */
-    border: 1px solid #ccd1d9;
-    border-radius: 8px;
-    font-size: 16px;
-    background-color: #f7f9fc;
-    transition: all 0.3s ease;
-}
-
-/* Foco en inputs */
-form input:focus, form select:focus, form button:focus {
-    border-color: #2980b9;
-    outline: none;
-    box-shadow: 0 0 10px rgba(41, 128, 185, 0.3);
-}
-
-/* Estilo del botón */
-form button {
     background-color: #2980b9;
     color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 16px;
     font-weight: bold;
     transition: background-color 0.3s ease;
 }
 
-/* Cambio de color al pasar el ratón por encima */
-form button:hover {
+.nav-button:hover {
     background-color: #1f6391;
-}
-
-/* Estilo de los enlaces */
-a {
-    color: #2980b9;
-    font-size: 16px;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
 }
     </style>
 </head>
 <body>
-<h2>Alumnos Registrados</h2>
-<ul>
-    <li th:each="alumno : ${alumnos}">
-        [[${alumno.nombre}]] - [[${alumno.curso}]] [[${alumno.grupo}]] - [[${alumno.deporte}]] - [[${alumno.rol}]]
-        <a th:href="@{'/alumnos/' + ${alumno.id} + '/editar'}">Editar</a>
-    </li>
-</ul>
+<div class="container">
+    <h2>Todos los Alumnos</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Curso</th>
+            <th>Grupo</th>
+            <th>Deporte</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="alumno : ${alumnos}">
+            <td th:text="${alumno.nombre}"></td>
+            <td th:text="${alumno.curso}"></td>
+            <td th:text="${alumno.grupo}"></td>
+            <td th:text="${alumno.deporte}"></td>
+            <td th:text="${alumno.rol}"></td>
+            <td>
+                <a th:href="@{'/alumnos/' + ${alumno.id} + '/editar'}">Editar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<a href="/" class="nav-button">Volver a la página principal</a>
 </body>
 </html>

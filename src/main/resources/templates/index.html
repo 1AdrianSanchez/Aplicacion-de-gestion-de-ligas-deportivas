@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Inicio - Gestión Deportiva</title>
+  <link rel="stylesheet" href="/static/css/estilos.css" />
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f4f8;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 30px;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #2d3e50;
+      margin-bottom: 30px;
+      font-weight: bold;
+    }
+
+    .nav-button {
+      display: inline-block;
+      width: 180px;
+      margin: 10px 15px;
+      padding: 15px;
+      font-size: 16px;
+      font-weight: bold;
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      text-align: center;
+    }
+
+    .nav-button:hover {
+      background-color: #1f6391;
+    }
+
+    /* Listados */
+    .list-section {
+      margin-top: 40px;
+      text-align: left;
+    }
+
+    .button {
+      text-align: center; /* botones centrados */
+    }
+
+    .list-section h2 {
+      color: #2d3e50;
+      font-weight: bold;
+      border-bottom: 2px solid #2980b9;
+      padding-bottom: 5px;
+      margin-bottom: 15px;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      max-height: 150px;
+      overflow-y: auto;
+      border: 1px solid #ccd1d9;
+      border-radius: 8px;
+      background-color: #f7f9fc;
+    }
+
+    ul li {
+      padding: 8px 15px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    ul li:last-child {
+      border-bottom: none;
+    }
+
+    ul li a {
+      color: #2980b9;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    ul li a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Bienvenido a la Gestión Deportiva</h1>
+
+  <div class="list-section">
+    <h2>Formularios:</h2>
+    <div class="button">
+      <a class="nav-button" href="/registrar-alumno">Registrar Alumno</a>
+      <a class="nav-button" href="/registrar-equipo">Registrar Equipo</a>
+      <a class="nav-button" href="/partidos/nuevo">Crear Nuevo Partido</a>
+    </div>
+  </div>
+
+  <div class="list-section">
+  <h2>Listados:</h2>
+    <div class="button">
+      <a class="nav-button" href="/alumnos">Alumnos</a>
+      <a class="nav-button" href="/equipos">Equipos </a>
+      <a class="nav-button" href="/partidos">Partidos y Registro de resultados</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

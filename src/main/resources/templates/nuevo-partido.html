@@ -96,11 +96,50 @@ a:hover {
 <body>
 <h2>Crear Nuevo Partido</h2>
 <form th:action="@{/partidos/nuevo}" method="post" th:object="${partido}">
-    <input type="text" th:field="*{equipoA}" placeholder="ID del Equipo A" required />
-    <input type="text" th:field="*{equipoB}" placeholder="ID del Equipo B" required />
+    <select id="deporteSelect" required>
+        <option value="">Selecciona un deporte</option>
+        <option th:each="dep : ${deportes}" th:value="${dep}" th:text="${dep}"></option>
+    </select>
+    <select th:field="*{equipoA}" id="equipoASelect" required>
+        <option value="">Selecciona Equipo A</option>
+        <option th:each="equipo : ${equipos}"
+                th:value="${equipo.id}"
+                th:data-deporte="${equipo.deporte}"
+                th:text="${equipo.nombre}">
+        </option>
+    </select>
+    <select th:field="*{equipoB}" id="equipoBSelect" required>
+        <option value="">Selecciona Equipo B</option>
+        <option th:each="equipo : ${equipos}"
+                th:value="${equipo.id}"
+                th:data-deporte="${equipo.deporte}"
+                th:text="${equipo.nombre}">
+        </option>
+    </select>
     <input type="datetime-local" th:field="*{fecha}" required />
     <input type="text" th:field="*{lugar}" placeholder="Lugar del partido" required />
     <button type="submit">Crear Partido</button>
+    <a href="/">Volver a la página principal</a>
 </form>
+<script>
+    const deporteSelect = document.getElementById('deporteSelect');
+    const equipoASelect = document.getElementById('equipoASelect');
+    const equipoBSelect = document.getElementById('equipoBSelect');
+
+    function filtrarEquipos() {
+        const deporteSeleccionado = deporteSelect.value;
+
+        [equipoASelect, equipoBSelect].forEach(select => {
+            Array.from(select.options).forEach(option => {
+                const deporte = option.getAttribute('data-deporte');
+                option.style.display = (!deporte || deporte === deporteSeleccionado) ? 'block' : 'none';
+            });
+            select.value = ''; // Reiniciar selección
+        });
+    }
+
+    deporteSelect.addEventListener('change', filtrarEquipos);
+    window.addEventListener('DOMContentLoaded', filtrarEquipos);
+</script>
 </body>
 </html>
