@@ -5,18 +5,33 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Document(collection = "equipos")
+/**
+ * Clase que representa un Equipo
+ * Esta mapeada a la coleccion "equipos" de MongoDB
+ */
+@Document(collection = "equipos") //indicamos que se almacena como documento
 public class Equipo {
-    @Id
+    @Id //id unico para cada documento
     private String id;
     private String nombre;
     private String deporte;
     private String capitan;
     private List<String> miembros;
 
+    /**
+     * Constructor vacio. necesario para que Spring cree instancias
+     */
     public Equipo() {
     }
 
+    /**
+     * Constructor con todos los atributos menos el ID
+     * ID se genera automaticamente en MongoDB
+     * @param nombre
+     * @param deporte
+     * @param capitan
+     * @param miembros lista de IDs de los miembros del equipo
+     */
     public Equipo(String nombre, String deporte, String capitan, List<String> miembros) {
         this.nombre = nombre;
         this.deporte = deporte;
@@ -24,6 +39,7 @@ public class Equipo {
         this.miembros = miembros;
     }
 
+    //Getters y setters
     public String getId() {
         return id;
     }
@@ -64,6 +80,10 @@ public class Equipo {
         this.miembros = miembros;
     }
 
+    /**
+     * ToString
+     * @return cadena
+     */
     @Override
     public String toString() {
         return "Equipo{" +

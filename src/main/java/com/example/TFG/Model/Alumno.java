@@ -3,9 +3,13 @@ package com.example.TFG.Model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "alumnos")
+/**
+ * Clase que representa un Alumno
+ * Esta mapeada a la coleccion "alumnos" de MongoDB
+ */
+@Document(collection = "alumnos") //indicamos que se almacena como documento
 public class Alumno {
-    @Id
+    @Id //id unico para cada documento
     private String id;
     private String nombre;
     private String curso;
@@ -13,9 +17,21 @@ public class Alumno {
     private String deporte;
     private String rol;
 
+    /**
+     * Constructor vacio. necesario para que Spring cree instancias
+     */
     public Alumno() {
     }
 
+    /**
+     * Constructor con todos los atributos menos el ID
+     * ID se genera automaticamente en MongoDB
+     * @param nombre
+     * @param curso
+     * @param grupo
+     * @param deporte
+     * @param rol
+     */
     public Alumno(String nombre, String curso, String grupo, String deporte, String rol) {
         this.nombre = nombre;
         this.curso = curso;
@@ -24,6 +40,7 @@ public class Alumno {
         this.rol = rol;
     }
 
+    //Getters y setters
     public String getId() {
         return id;
     }
@@ -72,6 +89,10 @@ public class Alumno {
         this.rol = rol;
     }
 
+    /**
+     * ToString
+     * @return cadena
+     */
     @Override
     public String toString() {
         return "Alumno{" +

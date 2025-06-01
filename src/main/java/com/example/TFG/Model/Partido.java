@@ -4,11 +4,14 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-@Document(collection = "partidos")
+/**
+ * Clase que representa un Partido
+ * Esta mapeada a la coleccion "partidos" de MongoDB
+ */
+@Document(collection = "partidos") //indicamos que se almacena como documento
 public class Partido {
-    @Id
+    @Id //id unico para cada documento
     private String id;
     private String equipoA;
     private String equipoB;
@@ -16,9 +19,21 @@ public class Partido {
     private String lugar;
     private String resultado;
 
+    /**
+     * Constructor vacio. necesario para que Spring cree instancias
+     */
     public Partido() {
     }
 
+    /**
+     * Constructor con todos los atributos menos el ID
+     * ID se genera automaticamente en MongoDB
+     * @param equipoA
+     * @param equipoB
+     * @param fecha
+     * @param lugar
+     * @param resultado
+     */
     public Partido(String equipoA, String equipoB, LocalDateTime fecha, String lugar, String resultado) {
         this.equipoA = equipoA;
         this.equipoB = equipoB;
@@ -27,6 +42,7 @@ public class Partido {
         this.resultado = resultado;
     }
 
+    //Getters y setters
     public String getId() {
         return id;
     }
@@ -75,6 +91,10 @@ public class Partido {
         this.resultado = resultado;
     }
 
+    /**
+     * ToString
+     * @return cadena
+     */
     @Override
     public String toString() {
         return "Partido{" +

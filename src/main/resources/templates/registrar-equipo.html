@@ -127,26 +127,28 @@ select[multiple] {
     <a href="/">Volver a la página principal</a>
 </form>
 <script>
-    const deporteSelect = document.getElementById('deporteSelect');
-    const capitanSelect = document.getElementById('capitanSelect');
-    const miembrosSelect = document.getElementById('miembrosSelect');
+    const deporteSelect = document.getElementById('deporteSelect'); //obtenemos el elemento que representa el selector de deporte
+    const capitanSelect = document.getElementById('capitanSelect'); //obtenemos el elemento que representa el selector de capitan
+    const miembrosSelect = document.getElementById('miembrosSelect'); //obtenemos el elemento que representa el selector de miembros
 
+     /**
+     * Funcion para filtrar las opciones disponibles en los selectores
+     * Reinicia la seleccion cada vez que se cambia el deporte
+     */
     function filtrarAlumnos() {
-        const deporteSeleccionado = deporteSelect.value;
+        const deporteSeleccionado = deporteSelect.value; //obtenemos el valor seleccionado en el desplegable
 
-        [capitanSelect, miembrosSelect].forEach(select => {
-            Array.from(select.options).forEach(option => {
-                const deporte = option.getAttribute('data-deporte');
-                const mostrar = !deporte || deporte === deporteSeleccionado;
-                option.style.display = mostrar ? 'block' : 'none';
+        [capitanSelect, miembrosSelect].forEach(select => { //aplicamos el filtrado a los selectores de capitan y miembros
+            Array.from(select.options).forEach(option => { //convertimos la coleccion en un array iterable
+                const deporte = option.getAttribute('data-deporte'); //obtenemos el valor de data-deporte
+                option.style.display = (!deporte || deporte === deporteSeleccionado) ? 'block' : 'none'; //mostrar la opcion si no hay deporte definido o coincide cone l seleccionado
             });
-            // Limpiar selección para evitar inconsistencias
-            select.value = '';
+            select.value = ''; //reiniciamos la seleccion
         });
     }
 
-    deporteSelect.addEventListener('change', filtrarAlumnos);
-    window.addEventListener('DOMContentLoaded', filtrarAlumnos);
+    deporteSelect.addEventListener('change', filtrarAlumnos); //cuando usuario cambie la seleccion se ejecuta la funcion
+    window.addEventListener('DOMContentLoaded', filtrarAlumnos); //cuando la pagina se cargue, se aplica el filtrado
 </script>
 </body>
 </html>

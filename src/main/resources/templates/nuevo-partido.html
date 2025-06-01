@@ -122,24 +122,49 @@ a:hover {
     <a href="/">Volver a la página principal</a>
 </form>
 <script>
-    const deporteSelect = document.getElementById('deporteSelect');
-    const equipoASelect = document.getElementById('equipoASelect');
-    const equipoBSelect = document.getElementById('equipoBSelect');
+    const deporteSelect = document.getElementById('deporteSelect'); //obtenemos el elemento que representa el selector de deporte
+    const equipoASelect = document.getElementById('equipoASelect'); //obtenemos el elemento que representa el selector del equipo A
+    const equipoBSelect = document.getElementById('equipoBSelect'); //obtenemos el elemento que representa el selector del equipo B
 
+     /**
+     * Funcion para filtrar las opciones disponibles en los selectores
+     * Reinicia la seleccion cada vez que se cambia el deporte
+     */
     function filtrarEquipos() {
-        const deporteSeleccionado = deporteSelect.value;
+        const deporteSeleccionado = deporteSelect.value; //obtenemos el valor seleccionado en el desplegable
 
-        [equipoASelect, equipoBSelect].forEach(select => {
-            Array.from(select.options).forEach(option => {
-                const deporte = option.getAttribute('data-deporte');
-                option.style.display = (!deporte || deporte === deporteSeleccionado) ? 'block' : 'none';
+        [equipoASelect, equipoBSelect].forEach(select => { //aplicamos el filtrado a los selectores de equipo
+            Array.from(select.options).forEach(option => { //convertimos la coleccion en un array iterable
+                const deporte = option.getAttribute('data-deporte'); //obtenemos el valor de data-deporte
+                option.style.display = (!deporte || deporte === deporteSeleccionado) ? 'block' : 'none'; //mostrar la opcion si no hay deporte definido o coincide cone l seleccionado
             });
-            select.value = ''; // Reiniciar selección
+            select.value = ''; //reiniciamos la seleccion
+        });
+        ocultarEquiposDuplicados(); //evitamos que se pueda seleccionar el mismo equipo em ambos selecctores
+    }
+
+     /**
+     * Funcion para deshabilitar en cada selector la opcion ecogida en el otro
+     */
+     function ocultarEquiposDuplicados() {
+        const equipoA = equipoASelect.value; //obtenemos el valor seleccionado en el desplegable
+        const equipoB = equipoBSelect.value; //obtenemos el valor seleccionado en el desplegable
+
+        //Recorremos el selector y deshabilitamos la que coincida con el equipo B
+        Array.from(equipoASelect.options).forEach(option => {
+            option.disabled = option.value === equipoB && option.value !== '';
+        });
+
+        //Recorremos el selector y deshabilitamos la que coincida con el equipo A
+        Array.from(equipoBSelect.options).forEach(option => {
+            option.disabled = option.value === equipoA && option.value !== '';
         });
     }
 
-    deporteSelect.addEventListener('change', filtrarEquipos);
-    window.addEventListener('DOMContentLoaded', filtrarEquipos);
+    deporteSelect.addEventListener('change', filtrarEquipos); //cuando usuario cambie la seleccion se ejecuta la funcion
+    equipoASelect.addEventListener('change', ocultarEquiposDuplicados); //cuando usuario seleccione equipo se ejecuta la funcion
+    equipoBSelect.addEventListener('change', ocultarEquiposDuplicados); //cuando usuario seleccione equipo se ejecuta la funcion
+    window.addEventListener('DOMContentLoaded', filtrarEquipos); //cuando la pagina se cargue, se aplica el filtrado
 </script>
 </body>
 </html>
