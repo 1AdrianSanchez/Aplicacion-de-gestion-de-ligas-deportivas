@@ -32,6 +32,6 @@ Aplicación web desarrollada para facilitar la organización y gestión de las l
 Las contribuciones, ideas y mejoras son bienvenidas.
 
 📬 Contacto
-Desarrollado por Adrián Sánchez
-📧 Email: ass94zgz@gmail.com
-🌐 GitHub: @1AdrianSanchez
+- Desarrollado por Adrián Sánchez
+- 📧 Email: ass94zgz@gmail.com
+- 🌐 GitHub: @1AdrianSanchez
