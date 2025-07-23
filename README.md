@@ -1,7 +1,5 @@
 # 🏅 Aplicación de Gestión de Ligas Deportivas del Recreo
 
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-
 Aplicación web desarrollada para facilitar la organización y gestión de las ligas deportivas que se celebran durante los recreos en centros de educación secundaria. Está dirigida tanto a alumnado como profesorado para gestionar equipos, partidos y resultados de forma sencilla.
 
 🔗 Repositorio: [github.com/1AdrianSanchez/Aplicacion-de-gestion-de-ligas-deportivas](https://github.com/1AdrianSanchez/Aplicacion-de-gestion-de-ligas-deportivas)
