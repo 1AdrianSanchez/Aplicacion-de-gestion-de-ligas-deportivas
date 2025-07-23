@@ -29,7 +29,7 @@ Aplicación web desarrollada para facilitar la organización y gestión de las l
 ---
 
 🤝 Contribuciones
-Las contribuciones, ideas y mejoras son bienvenidas.
+- Las contribuciones, ideas y mejoras son bienvenidas.
 
 📬 Contacto
 - Desarrollado por Adrián Sánchez
